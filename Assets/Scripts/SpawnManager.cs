@@ -9,27 +9,22 @@ public class SpawnManager : MonoBehaviour
 
     private float _spawnTime;
     private float _spawnCooldown = 2f;
-    private Queue<Portal> _spawnQueue;
-    private Portal _currentSpawnPoint;
+    private int _currentSpawnPointNumber = 0;
+    private Portal _currentPortal;
 
     private void Awake()
     {
         _spawnTime = _spawnCooldown;
-        Queue<Portal> _spawnQueue = new Queue<Portal>();
-
-        foreach(var point in _spawnPoints)
-        {
-            _spawnQueue.Enqueue(point);
-        }
     }
 
     private void Update()
     {
-        if (_spawnTime <= 0)
+        if (_spawnTime <= 0 && _currentSpawnPointNumber < _spawnPoints.Length)
         {
-            _currentSpawnPoint = _spawnQueue.Dequeue();
-            Instantiate(_enemy, _currentSpawnPoint.transform.position, Quaternion.identity);
+            _currentPortal = _spawnPoints[_currentSpawnPointNumber];
+            Instantiate(_enemy, _currentPortal.transform.position, Quaternion.identity);
             _spawnTime = _spawnCooldown;
+            _currentSpawnPointNumber++;
         }
         else
         {
