@@ -8,7 +8,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Portal[] _points;
 
     private float _cooldown = 2f;
-    private int _currentPointNumber = 0;
     private Portal _currentPortal;
     private Coroutine _spawnEnemy;
 
@@ -19,17 +18,13 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        while (_currentPointNumber < _points.Length)
+        var waitTwoSeconds = new WaitForSeconds(2f);
+
+        for (int i = 0; i < _points.Length; i++)
         {
-            _currentPortal = _points[_currentPointNumber];
+            _currentPortal = _points[i];
             Instantiate(_enemy, _currentPortal.transform.position, Quaternion.identity);
-            _currentPointNumber++;
-            yield return new WaitForSeconds(_cooldown);
-        }
-        
-        if (_currentPointNumber == _points.Length)
-        {
-            StopCoroutine(_spawnEnemy);
+            yield return waitTwoSeconds;
         }
     }
 }
