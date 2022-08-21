@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 4362839017334654260, guid: d310af83e4d18da42995476c30962273, type: 3}
-  _spawnPoints:
+  _points:
   - {fileID: 1032057783}
   - {fileID: 1754083523}
   - {fileID: 218890745}
